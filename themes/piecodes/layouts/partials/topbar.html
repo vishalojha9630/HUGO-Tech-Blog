@@ -1,0 +1,18 @@
+{{ $s := site.Params }}
+{{- range $key, $value := .Site.Taxonomies }}
+{{- if gt $value 0 }}
+
+{{- $slicedTags := ($value.ByCount) }}
+{{- range $slicedTags }}
+
+<li class="list-inline-item">
+  <a href='{{ absLangURL $key }}/{{ (replace .Name "#" "%23") }}/'
+    class="nav-link text-primary rounded-3 text-capitalize">
+    {{.Name }}
+  </a>
+</li>
+
+{{ end }}
+
+{{- end }}
+{{- end }}

@@ -1,0 +1,63 @@
+{{ define "main" }}
+
+<section class="banner-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-10 col-sm-12">
+        <header>
+          <h2>{{ .Title }}</h2>
+        </header>
+
+        {{ range .Paginator.Pages.ByPublishDate.Reverse }}
+        <article class="my-5">
+          <header class="d-flex">
+            <figure>
+              <a href="#">
+                <div class="bio-image-wrapper shake-animation">
+                  <picture>
+                    {{ if .Params.Cover }}
+                    {{ partial "image.html" . }}
+                    {{ end }}
+                  </picture>
+                </div>
+              </a>
+            </figure>
+            <div class="article-meta ms-3">
+              {{ with .Params.Author }}
+              <a href="#" class="text-primary title-link">{{ $.Site.Params.WrittenBy }} {{ . }}</a>
+              <em class="text-secondary">wrote</em>
+              {{ end }}
+
+              <h2>
+                <a href="{{ .RelPermalink }}" class="text-white text-decoration-none">{{ .Title }}</a>
+              </h2>
+
+              <div class="text-white article-summary mb-0"><time datetime="2022-12-15"></time>
+                {{ .Summary }}
+              </div>
+              {{ if not .Params.hideReadMore }}
+              <a href="{{.RelPermalink}}" class="btn btn-link">
+                {{ $.Site.Params.ReadMore | default "Read more" }}…</a>
+              {{ end }}
+            </div>
+
+          </header>
+        </article>
+        {{ end }}
+
+      </div>
+
+      <div class="col-12 d-flex justify-content-center">
+        <nav aria-label="Page navigation" class="pagination-list">
+          {{ if .Paginator.HasPrev }}
+          <a href="{{ .Paginator.Prev.URL }}"></a>
+          {{ end }}
+          {{ if .Paginator.HasNext }}
+          <a href="{{ .Paginator.Next.URL }}"></a>
+          {{ end }}
+          {{ template "_internal/pagination.html" . }}
+        </nav>
+      </div>
+    </div>
+</section>
+{{ end }}

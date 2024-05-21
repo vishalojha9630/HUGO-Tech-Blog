@@ -1,0 +1,42 @@
+<article class="mb-5">
+  <header class="d-flex">
+    <figure>
+      <a href="#">
+        <div class="bio-image-wrapper shake-animation">
+          <picture>
+            {{ if .Params.Cover }}
+            {{ partial "image.html" . }}
+            {{ end }}
+          </picture>
+        </div>
+      </a>
+    </figure>
+    <div class="article-meta ms-3">
+      {{ with .Params.Author }}
+      <p class="mb-1">
+        <a href="#" class="text-primary title-link">{{ $.Site.Params.WrittenBy }} {{ . }}</a>
+        <em class="text-secondary">wrote</em>
+      </p>
+      {{ end }}
+
+      <h2 class="mb-0">
+        <a href="{{ .RelPermalink }}" class="text-white text-decoration-none">{{ .Title | markdownify }}</a>
+      </h2>
+
+      <p class="mb-0"><time>{{ partial "meta.html" . }}</time></em>
+      </p>
+    </div>
+  </header>
+
+  <div class="article-excerpt">
+    <p class="text-white article-summary">{{ .Summary }}
+
+      {{ if not .Params.hideReadMore }}
+    <p class="m-0">
+      <a href="{{.RelPermalink}}" class="btn btn-link">
+        {{ $.Site.Params.ReadMore | default "Continue reading ↬" }}
+      </a>
+    </p>
+    {{ end }}
+  </div>
+</article>

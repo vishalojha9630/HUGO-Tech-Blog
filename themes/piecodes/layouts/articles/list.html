@@ -1,0 +1,88 @@
+{{ define "main" }}
+
+
+<section class="article-listing">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <header>
+          <h2 class="text-dark">
+            <span class="">{{ .Title | markdownify }}</span>
+          </h2>
+        </header>
+
+        {{ range .Paginator.Pages.ByPublishDate.Reverse }}
+        <article>
+          <div class="row">
+            <div class="col-lg-10">
+              <header class="d-flex">
+                <figure>
+                  <a href="#">
+                    <div class="bio-image-wrapper shake-animation">
+                      <picture>
+                        {{ if .Params.Cover }}
+                        {{ partial "image.html" . }}
+                        {{ end }}
+                      </picture>
+                    </div>
+                  </a>
+                </figure>
+
+                <div class="article-meta ms-3 mb-0">
+                  {{ with .Params.Author }}
+                  <p class="mb-1">
+                    <a href="#" class="text-primary title-link">{{ $.Site.Params.WrittenBy }} {{ . }}
+                    </a><em class="text-secondary">wrote</em>
+                  </p>
+                  {{ end }}
+
+                  <h2 class="mb-0">
+                    <a href="{{ .RelPermalink }}" class="text-white text-decoration-none">{{ .Title | markdownify }}</a>
+                  </h2>
+
+                  <p class="text-white article-summary mb-0">In this article, Thomas Bohm shares strategies and methods
+                    to
+                    tackle some
+                    common graphic
+                    communication problems and gives you insights into how to improve accessibility and usability and
+                    make
+                    your designs much better.
+
+                  </p>
+                  {{ if not .Params.hideReadMore }}
+                  <a href="{{.RelPermalink}}" class="btn btn-link">
+                    {{ $.Site.Params.ReadMore | default "Read more" }}
+                  </a>
+                  {{ end }}
+                </div>
+              </header>
+            </div>
+            <footer class="my-auto col-lg-2 articles-footer">
+              <ul class="mb-0 p-0">
+                <li class="d-block text-secondary"><i class="fa fa-calendar text-primary"></i> &nbsp; <span
+                    class="text-secondary">
+                    {{ math.Round (div (countwords .Content) 150.0) }} </span> min read </li>
+              </ul>
+            </footer>
+          </div>
+        </article>
+        {{ end }}
+
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+        <nav aria-label="Page navigation" class="pagination-list">
+
+          {{ if .Paginator.HasPrev }}
+          <a href="{{ .Paginator.Prev.URL }}"></a>
+          {{ end }}
+          {{ if .Paginator.HasNext }}
+          <a href="{{ .Paginator.Next.URL }}"></a>
+          {{ end }}
+          {{ template "_internal/pagination.html" . }}
+        </nav>
+      </div>
+    </div>
+</section>
+
+
+{{ end }}

@@ -1,0 +1,334 @@
+{{ define "main" }}
+
+{{ $mainSections := .Site.Params.mainSections | default (slice "post") }}
+{{ $section := where .Site.RegularPages "Section" "in" $mainSections }}
+{{ $section_name := index (.Site.Params.mainSections) 0 }}
+{{ $section_count := len $section }}
+
+<!-- News Letter -->
+<section class="banner-content">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-5 col-md-12 col-sm-12">
+        <div class="card border-0 promo-box rounded-3">
+          <div class="position-relative">
+            <img src="/assets/images/highligh.svg" class="card-img-top position-absolute promo-box-images" height="200"
+              width="200">
+          </div>
+          <div class="card-body text-center promo-box-body">
+            <a href="#" class="btn btn-primary newletter-botton">Email Newsletter</a>
+            <h3 class="mt-4">Useful front-end & UX tips, delivered once a
+              week.</h3>
+
+            <p class="article-summary">With tools to help you get your work done better. Subscribe and get Vitaly’s
+              <strong> <a href="#" class="text-primary">Smart
+                  Interface Design Checklists PDF</a></strong>— in your inbox. 🎁
+            </p>
+
+            <form>
+              <div class="input-group mb-3 border-0">
+                <input type="email" class="form-control" placeholder="Your email">
+                <button type="submit" class="input-group-text border-0">meow!</button>
+              </div>
+            </form>
+            <small class=""><em>On <a href="#" class="text-dark">front-end &amp;
+                  UX</a>.
+                Trusted by
+                200,000+ folks.</em></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- See card -->
+<section class="banner-content">
+  <div class="container">
+    <div class="row gy-3">
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="card rounded-3 border-0 card-green">
+          <img src="/assets/images/cube-slider.webp" class="card-img-top">
+          <div class="card-body">
+            <h3><a href="#" class="text-dark">Accessible Front-<br>End Components</a></h3>
+            <p class="article-summary">Reliable accessible UI components: <code class="bg-light p-1">:focus</code>
+              styles,
+              modals, date pickers, navigation, tables,buttons, SVGs.</p>
+            <button type="button" class="btn btn-primary newletter-botton">Explore
+              Accessible
+              Components</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="card rounded-3 border-0 card-green">
+          <img src="/assets/images/cube-slider.webp" class="card-img-top">
+          <div class="card-body">
+            <h3><a href="#" class="text-dark">So, you’d like to animate the display property</a></h3>
+            <p class="article-summary">Useful CSS tools for animations, shadows, cubic-bezier curves, easing gradients,
+              filters, overlays, type scales.
+            </p>
+            <button type="button" class="btn btn-primary newletter-botton">Explore
+              Accessible
+              Components</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 d-flex">
+        <div class="card rounded-3 border-0 card-green">
+          <img src="/assets/images/cube-slider.webp" class="card-img-top">
+          <div class="card-body">
+            <h3><a href="#" class="text-dark">Accessible Front-<br>End Components</a></h3>
+            <p class="article-summary">Reliable accessible UI components: <code>:focus</code> styles, modals, date
+              pickers, navigation,
+              tables, buttons, SVGs.</p>
+            <button type="button" class="btn btn-primary newletter-botton">Explore
+              Accessible
+              Components</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 text-center">
+        <a class="btn btn-link" href="#">See All
+          Guides</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Articles listing -->
+<section class="banner-content">
+  <div class="container">
+    {{ $n_posts := $.Param "recent_posts_number" | default 6 }}
+    <div class="row">
+      {{ range (first $n_posts $section) }}
+      <div class="col-lg-12 col-md-12 col-xl-6">
+        <article>
+          <header class="d-flex">
+            <figure>
+              <a href="#">
+                <div class="bio-image-wrapper shake-animation">
+                  <picture>
+                    {{ if .Params.Cover }}
+                    {{ partial "image.html" . }}
+                    {{ end }}
+                  </picture>
+                </div>
+              </a>
+            </figure>
+
+            <div class="article-meta ms-3">
+              {{ with .Params.Author }}
+              <p class="mb-1">
+                <a href="#" class="text-primary title-link">{{ $.Site.Params.WrittenBy }} {{ . }}</a>
+                <em class="text-secondary">wrote</em>
+              </p>
+              {{ end }}
+
+              <h2><a href="{{ .RelPermalink }}" class="text-decoration-none text-white"> {{ .Title | markdownify }}</a>
+              </h2>
+              <div class="article-summary text-white">
+                {{ .Summary }}
+              </div>
+
+              <div>
+                <p><time class="text-uppercase">{{ partial "meta.html" . }}</time></p>
+              </div>
+            </div>
+          </header>
+        </article>
+      </div>
+      {{ end }}
+
+      <div class="col-12 text-center">
+        {{ with .Site.GetPage "section" $section_name }}
+        <a class="btn btn-link" href="{{ .RelPermalink }}">See More Latest Articles → </a>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ShortCode AWS & Newsletter -->
+<section class="banner-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 col-xl-5">
+        <div class="my-4 pt-2 text-center">
+          <small class="text-white">Our friends and supporters ↓</small>
+        </div>
+        <div class="card border-0 rounded-3 gradient-success">
+          <img src="/assets/images/aws-white.svg" height="350" width="200" class="card-img-top">
+          <div class="card-body text-center text-white">
+            <h4 class="fw-bold">AWS Amplify</h4>
+            <p class="article-summary mb-0">A React Data Grid that makes a developer’s
+            </p>
+            <a href="#" class="btn btn-danger newletter-botton px-4">Learn more</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-sm-12 col-md-12 col-xl-7">
+        <div class="card border-0 promo-box rounded-3">
+          <div class="position-relative">
+            <img src="/assets/images/highligh.svg" class="card-img-top position-absolute promo-box-images" height="250"
+              width="250">
+          </div>
+          <div class="card-body text-center promo-box-body">
+            <h3 class="mt-5">Join 1,811 Smashing Members</h3>
+            <p class="article-summary mb-0">A <strong>friendly community</strong> for people who design and build the
+              web.
+              With books, workshops,
+              goodies and early-birds —&nbsp;for just 1 coffee a month. <a href="#" class="text-primary">Take a look
+                around.</a>
+            </p>
+            <a href="#" class="btn btn-primary newletter-botton rounded-3">Email newsletter</a>
+            <p>
+              <em>Already have an account? <a href="#" class="text-dark">Sign in!</a></em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slider -->
+<section class="banner-content">
+  <div class="container">
+    <div class="row">
+      <div class="family-grid-content">
+        <div class="family-grid w-100 d-flex pb-2" style="overflow-x: auto;">
+          <div class="promo-text promo-text--green">
+            <div class="card border-0 rounded-3">
+              <img src="/assets/images/transition.png" class="card-img-top">
+              <div class="card-body">
+                <h3 class="text-dark">Smashing Workshops</h3>
+                <p class="article-summary mb-0"><strong>14 printed books</strong> and <strong>67 eBooks</strong>.
+                  Written
+                  for web
+                  developers, designers and marketeers.</p>
+                <button type="button" class="btn btn-primary newletter-botton rounded-3">Explore
+                  Accessible
+                  Components</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="promo-text promo-text--green">
+            <div class="card border-0 rounded-3">
+              <img src="/assets/images/transition.png" class="card-img-top">
+              <div class="card-body">
+                <h3 class="text-dark">Smashing Workshops</h3>
+                <p class="article-summary mb-0"><strong>14 printed books</strong> and <strong>67 eBooks</strong>.
+                  Written
+                  for web
+                  developers, designers and marketeers.</p>
+                <button type="button" class="btn btn-primary newletter-botton rounded-3">Explore
+                  Accessible
+                  Components</button>
+              </div>
+            </div>
+          </div>
+          <div class="promo-text promo-text--green">
+            <div class="card border-0 rounded-3">
+              <img src="/assets/images/transition.png" class="card-img-top">
+              <div class="card-body">
+                <h3 class="text-dark">Smashing Workshops</h3>
+                <p class="article-summary mb-0"><strong>14 printed books</strong> and <strong>67 eBooks</strong>.
+                  Written
+                  for web
+                  developers, designers and marketeers.</p>
+                <button type="button" class="btn btn-primary newletter-botton rounded-3">Explore
+                  Accessible
+                  Components</button>
+              </div>
+            </div>
+          </div>
+          <div class="promo-text promo-text--green">
+            <div class="card border-0 rounded-3">
+              <img src="/assets/images/transition.png" class="card-img-top">
+              <div class="card-body">
+                <h3 class="text-dark">Smashing Workshops</h3>
+                <p class="article-summary mb-0"><strong>14 printed books</strong> and <strong>67 eBooks</strong>.
+                  Written
+                  for web
+                  developers, designers and marketeers.</p>
+                <button type="button" class="btn btn-primary newletter-botton rounded-3">Explore
+                  Accessible
+                  Components</button>
+              </div>
+            </div>
+          </div>
+          <div class="promo-text promo-text--green">
+            <div class="card border-0 rounded-3">
+              <img src="/assets/images/transition.png" class="card-img-top">
+              <div class="card-body">
+                <h3 class="text-dark">Smashing Workshops</h3>
+                <p class="article-summary mb-0"><strong>14 printed books</strong> and <strong>67 eBooks</strong>.
+                  Written
+                  for web
+                  developers, designers and marketeers.</p>
+                <button type="button" class="btn btn-primary newletter-botton rounded-3">Explore
+                  Accessible
+                  Components</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Remaining Articles -->
+<section class="banner-content">
+  <div class="container">
+    <div class="row">
+      {{ range (first 4 (after $n_posts $section)) }}
+      <div class="col-lg-12 col-md-12 col-xl-6">
+        <article>
+          <header class="d-flex">
+            <figure>
+              <a href="#">
+                <div class="bio-image-wrapper shake-animation">
+                  <picture>
+                    {{ if .Params.Cover }}
+                    {{ partial "image.html" . }}
+                    {{ end }}
+                  </picture>
+                </div>
+              </a>
+            </figure>
+
+            <div class="article-meta ms-3">
+              {{ with .Params.Author }}
+              <p class="mb-1">
+                <a href="#" class="text-primary title-link">{{ $.Site.Params.WrittenBy }} {{ . }}</a>
+                <em class="text-secondary">wrote</em>
+              </p>
+              {{ end }}
+
+              <h2><a href="{{ .RelPermalink }}" class="text-decoration-none text-white"> {{ .Title | markdownify }}</a>
+              </h2>
+              <div class="text-white article-summary">
+                {{ .Summary }}
+              </div>
+
+              <div>
+                <time class="text-uppercase">{{ partial "meta.html" . }}</time>
+              </div>
+            </div>
+          </header>
+        </article>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

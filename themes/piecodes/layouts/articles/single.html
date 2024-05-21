@@ -1,0 +1,120 @@
+{{ define "main" }}
+
+<section class="banner-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-xl-7 col-md-12 col-sm-12 post-content-summary">
+        <header class="mb-4">
+          <ul class="list-inline">
+            {{ with .Params.Author }}
+            <li class="list-inline-item"><a href="#" class="text-primary title-link">
+                {{ $.Site.Params.WrittenBy }} {{ .}}</a></li>
+            {{ end }}
+            <li class="list-inline-item"><time>{{ partial "meta.html" . }}</time></li>
+          </ul>
+          <h2 class="text-geredient">{{ .Title }}</h2>
+        </header>
+
+        <div class="social-icon mb-4 rounded-3">
+          <ul class="list-inline m-0">
+            <li class="list-inline-item text-white"><i class="fa fa-calendar text-primary"></i>&nbsp;<span>
+                {{ math.Round (div (countwords .Content) 150.0) }} </span>min read
+            </li>
+
+            <li class="list-inline-item text-white"><i class="fa fa-twitter text-primary"></i>&nbsp; Share on
+              <em><a href="https://twitter.com/home" class="text-white">Twitter</a></em>
+            </li>
+            <li class="list-inline-item">
+              <em><a href="https://www.linkedin.com/feed/" class="text-white">LinkedIn</a></em>
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-white article-summary">
+          <div class="single-post">
+          <p class="text-white pb-3 quick-summary"><span class="text-primary text-noramal">Quick summary ↬&nbsp;
+          </span>{{ .Summary | plainify }} </p>
+        </div>
+          <!-- {{ $body := replace .Content .Summary "" }}
+          <div class="text-white">{{ $body | safeHTML }}</div> -->
+          <div class="text-white">{{ .Content }}</div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-xl-4 col-md-12 offset-xl-1 d-lg-none d-sm-none d-xl-block">
+        <article class="article py-3 px-4 rounded-3 promo-box w-100 mb-3">
+          <figure class=" col-lg-4 col-md-3">
+            <a href="#">
+              <div class="bio-image-wrapper shake-animation">
+                {{ if .Params.Cover }}
+                {{ partial "image.html" . }}
+                {{ end }}
+              </div>
+            </a>
+          </figure>
+
+          <div>
+            <h3 class="text-dark">About The Author</h3>
+            <p class="text-dark article-summary">{{ .Description }}</p>
+          </div>
+
+          <div>
+            <h3 class="text-dark">Email Newsletter</h3>
+            <form>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Your email">
+                <button type="button" class="input-group-text">Meow!</button>
+              </div>
+            </form>
+            <p class="text-center"><em><a href="#" class="text-dark">Weekly tips
+                  on front-end &amp; UX</a>.<br>Trusted by 200,000+ folks.</em></p>
+          </div>
+        </article>
+
+        <div class="card border-0">
+          <img src="/assets/images/vitaly-friedman-training.avif" class="card-img-top">
+          <div class="card-body text-center">
+            <em><a href="#" class="text-dark">Interface Design Patterns UX Training</a></em>
+          </div>
+        </div>
+
+        <div class="card border-0 my-3">
+          <img src="/assets/images/smashingconf-front-end-sf-2023.png" class="card-img-top">
+          <div class="card-body text-center">
+            <em><a href="#" class="text-dark">SmashingConf Front-End 2023</a></em>
+          </div>
+        </div>
+
+        <div class="card border-0">
+          <img src="/assets/images/articles-text.png" class="card-img-top">
+          <div class="card-body text-center">
+            <em><a href="#" class="text-dark">SmashingConf Front-End 2023</a></em>
+          </div>
+        </div>
+
+        <div class="card border-0 my-3">
+          <img src="/assets/images/smashing-friskies-300x250 (1).avif" class="card-img-top">
+          <div class="card-body text-center">
+            <em><a href="#" class="text-dark">SmashingConf Front-End 2023</a></em>
+          </div>
+        </div>
+
+        <div class="card border-0">
+          <img src="/assets/images/amplifyq4.jpg" class="card-img-top">
+          <div class="card-body text-center">
+            <em class=""><a href="#" class="text-dark">SmashingConf Front-End 2023</a></em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comment Section -->
+<div class="utterances w-75 mx-auto text-secondary">
+  <script src="https://utteranc.es/client.js" repo="utterance/utterances" issue-term="pathname" theme="github-light"
+    crossorigin="anonymous" async>
+    </script>
+</div>
+
+{{ end }}
